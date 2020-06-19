@@ -2,24 +2,52 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 
-const Header = (props) =>{
-  return(
+const Header = (props) => {
+  return (
     <div>
       <h1>{props.name}</h1>
     </div>
   )
 }
 
-const Value = (props)=>{
-  return(
+const StatisticLine = (props)=> {
+  return (
     <div>
-      {props.value}
+      {props.name} {props.value}
     </div>
   )
 }
 
+const Button = (props) => {
+  return (
+   <button onClick={props.value}>{props.text}</button>
+  )
+}
+
+const Statistics = (props) => {
+  if (props.total === 0) {
+    return (
+      <div>
+        No Feedback Given
+      </div>
+    )
+  }
+
+  return (
+    <div>
+    <StatisticLine name='Good' value={props.values.good}/>
+    <StatisticLine name='Neutral' value={props.values.neutral}/>
+    <StatisticLine name='Bad' value={props.values.bad}/>
+    <StatisticLine name='All' value={props.total}/>
+    <StatisticLine name='Average' value={(props.values.good + (props.values.neutral * 0) + (-props.values.bad)) / props.total}/>
+    <StatisticLine name='Positive %' value={props.values.good / props.total}/>
+    </div>
+  )
+
+}
+
 const App = (props) => {
-  
+
   const [total, setTotal] = useState(0)
   const [values, setValues] = useState({
     good: 0, neutral: 0, bad: 0
@@ -30,12 +58,12 @@ const App = (props) => {
     setTotal(total + 1)
   }
 
-  const handleNeutral = () =>{
+  const handleNeutral = () => {
     setValues({ ...values, neutral: values.neutral + 1})
     setTotal(total + 1)
   }
     
-  const handleBad = () =>{
+  const handleBad = () => {
     setValues({ ...values, bad: values.bad + 1})
     setTotal(total + 1)
   }
@@ -43,17 +71,12 @@ const App = (props) => {
   return (
     <div>
       <Header name='Give Feedback' />
-      <button onClick={handleGood}>Good</button>
-      <button onClick={handleNeutral}>Neutral</button>
-      <button onClick={handleBad}>Bad</button>
+      <Button value={handleGood} text='Good'/>
+      <Button value={handleNeutral} text='Neutral'/>
+      <Button value={handleBad} text='Bad'/>
       <Header name='Statistics' />
-      <Value value={values.good}/>
-      <Value value={values.neutral}/>
-      <Value value={values.bad}/>
-      <Value value={total}/>
-      <Value value={(values.good + (values.neutral * 0) + (-values.bad)) / total}/>
-      <Value value={values.good / total}/>
-      </div>
+      <Statistics values={values} total={total}/>
+    </div>
   )
 }
 
