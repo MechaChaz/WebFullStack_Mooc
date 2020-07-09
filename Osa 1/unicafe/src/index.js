@@ -12,9 +12,10 @@ const Header = (props) => {
 
 const StatisticLine = (props)=> {
   return (
-    <div>
-      {props.name} {props.value}
-    </div>
+    <tr>
+      <td>{props.name}</td>
+      <td>{props.value}</td>
+    </tr>
   )
 }
 
@@ -35,12 +36,16 @@ const Statistics = (props) => {
 
   return (
     <div>
-    <StatisticLine name='Good' value={props.values.good}/>
-    <StatisticLine name='Neutral' value={props.values.neutral}/>
-    <StatisticLine name='Bad' value={props.values.bad}/>
-    <StatisticLine name='All' value={props.total}/>
-    <StatisticLine name='Average' value={(props.values.good + (props.values.neutral * 0) + (-props.values.bad)) / props.total}/>
-    <StatisticLine name='Positive %' value={props.values.good / props.total}/>
+      <table>
+        <tbody>
+          <StatisticLine name='Good' value={props.values.good}/>
+          <StatisticLine name='Neutral' value={props.values.neutral}/>
+          <StatisticLine name='Bad' value={props.values.bad}/>
+          <StatisticLine name='All' value={props.total}/>
+          <StatisticLine name='Average' value={(props.values.good + (props.values.neutral * 0) + (-props.values.bad)) / props.total}/>
+          <StatisticLine name='Positive %' value={props.values.good / props.total}/>
+        </tbody>
+      </table>
     </div>
   )
 
