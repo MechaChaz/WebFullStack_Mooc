@@ -3,19 +3,61 @@ import ReactDOM from 'react-dom'
 
 const Button = (props) => {
   return (
+    <button onClick={props.event}>{props.name}</button>
+  )
+}
+
+const MostVoted = (props) => {
+  if(props.votes > 0){
+    return(
+      <div>
+        <h1>Most voted quote is</h1>
+        {props.quote}
+        <div>It has {props.votes} votes</div>
+      </div>
+    )
+  }
+  return(
     <div>
-      <button onClick={props.event}>{props.name}</button>
+      <h1>Most voted quote is</h1>
+      No anecdote has been voted.
     </div>
   )
 }
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [controller, setController] = useState(0)
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
+
+ const handleClick = () => {
+    setController ((Math.floor(Math.random() * anecdotes.length)))
+    setSelected (controller)
+  }
+
+  const addVote = () => {
+    const copy = [...votes]
+    copy[selected]++
+    setVotes(copy)
+  }
+
+  const indexOfMax = () => votes.indexOf(Math.max(...votes))
 
   return (
     <div>
       {props.anecdotes[selected]}
-      <Button name='New Quote'/>
+      <div>
+      {votes[selected]}
+      </div>
+      <div> 
+      <Button event={handleClick} name='New Quote'/>
+      <Button event={addVote} name='Vote Quote'/>
+      </div>
+      <MostVoted 
+      votes = {votes[indexOfMax()]}
+      quote = {anecdotes[indexOfMax()]}
+      />
+
     </div>
   )
 }
