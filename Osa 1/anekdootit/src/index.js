@@ -53,9 +53,7 @@ const App = (props) => {
       <Button event={handleClick} name='New Quote'/>
       <Button event={addVote} name='Vote Quote'/>
       </div>
-      <MostVoted 
-      votes = {votes[indexOfMax()]}
-      quote = {anecdotes[indexOfMax()]}
+      <MostVoted votes = {votes[indexOfMax()]} quote = {anecdotes[indexOfMax()]}
       />
 
     </div>
