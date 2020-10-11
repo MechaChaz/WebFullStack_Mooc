@@ -10,6 +10,7 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber] = useState('')
+  const [ search, setSearch] = useState('')
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -38,11 +39,17 @@ const App = () => {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
+  
+  const handleSearch = (event) => {
+    setSearch(event.target.value)
+  }
 
   return (
     <div>
       <h1>Phonebook</h1>
         Filter Shown <input
+        value={search}
+        onChange={handleSearch}
         />
       <h2>Add a person</h2>
       <form onSubmit={addPerson}>
