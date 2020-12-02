@@ -70,10 +70,9 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-        {names.map(item => <Numbers key={item.id} names={item.name} numbers={item.number} />)}
+        {names.map(item => <Numbers key={item.id} names={item.name} numbers={item.number} search={search} />)}
     </div>
   )
-
 }
 
 export default App
